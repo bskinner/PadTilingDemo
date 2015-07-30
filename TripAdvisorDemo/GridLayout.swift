@@ -106,6 +106,12 @@ class GridLayout: UICollectionViewLayout {
     }
     
     // MARK: - Helpers
+    private func resetLayout() {
+        self.columnWidth = 0
+        self.numberOfItems = 0
+        self.attributes = nil
+    }
+    
     private func numberOfItemsInCollectionView() -> Int {
         
     }
