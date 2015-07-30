@@ -4,9 +4,10 @@ class ImagesDataSource {
     private let imageURLs: [NSURL]
     private var cachedImages: [NSURL:UIImage] = [:]
     
-    subscript(index: Int) -> NSURL {
+    subscript(index: Int) -> UIImage? {
         get {
-            return imageURLs[index]
+            let url = imageURLs[index]
+            return cachedImages[url]
         }
     }
     
@@ -42,33 +43,31 @@ class ImagesDataSource {
         self.imageURLs = urls
     }
     
-    func image(index: Int, completion: (image: UIImage?, error: NSError?) -> ()) -> NSURLSessionTask? {
-        let imageURL = self[index]
+    func numberOfImages() -> Int {
+        return self.imageURLs.count
+    }
+    
+    func getImage(index: Int, didLoad: (image: UIImage?, error: NSError?) -> ()) -> NSURLSessionTask {
+        let url = self.imageURLs[index]
         
-        if let cachedImage = cachedImages[imageURL] {
-            completion(image: cachedImage, error: nil)
-            return nil
-        } else {
-            let task = NSURLSession.sharedSession().dataTaskWithURL(imageURL) { data, response, error in
-                guard error == nil else {
-                    print("request failed with error \(error)")
-                    completion(image: nil,error: error)
-                    return
-                }
-                
-                guard let image = UIImage(data: data!) else {
-                    print("failed to create image from data for url \(imageURL)")
-                    completion(image: nil,error: nil)
-                    return
-                }
-                
-                self.cachedImages[imageURL] = image
-                completion(image: image,error: nil)
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url) { data, response, error in
+            guard error == nil else {
+                print("request failed with error \(error)")
+                didLoad(image: nil,error: error)
+                return
             }
             
-            task.resume()
-            return task
+            guard let image = UIImage(data: data!) else {
+                print("failed to create image from data for url \(url)")
+                didLoad(image: nil, error: nil)
+                return
+            }
+            
+            self.cachedImages[url] = image
+            didLoad(image: image, error:nil)
         }
         
+        task.resume()
+        return task
     }
 }
