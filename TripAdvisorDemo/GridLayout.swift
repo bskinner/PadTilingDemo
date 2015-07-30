@@ -53,12 +53,14 @@ class GridLayout: UICollectionViewLayout {
     override func prepareLayout() {
         super.prepareLayout()
         
-        if let collectionView = self.collectionView {
-            let bounds = collectionView.bounds
-            self.attributes = []
-            self.numberOfItems = self.numberOfItemsInCollectionView()
-        } else {
-            self.columnWidth = 0
+        guard let collectionView = self.collectionView else {
+            self.resetLayout()
+            return
+        }
+        
+        guard collectionView.numberOfSections() > 0 else {
+            self.resetLayout()
+            return
         }
     }
     
