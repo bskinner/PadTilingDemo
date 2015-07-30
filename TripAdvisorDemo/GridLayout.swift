@@ -120,7 +120,44 @@ class GridLayout: UICollectionViewLayout {
     }
     
     private func numberOfItemsInCollectionView() -> Int {
+    private func sizeForItem(indexPath: NSIndexPath) -> CGSize? {
+        guard let collectionView = self.collectionView else {
+            return nil
+        }
         
+        guard let delegate = self.delegate else {
+            return nil
+        }
+        
+        let height = delegate.collectionView(collectionView, heightForItemAtIndexPath: indexPath)
+        return CGSize(width: self.columnWidth, height: height)
+    }
+    
+    private func originForItem(indexPath: NSIndexPath) -> CGPoint? {
+        let column = indexPath.item % self.numberOfColumns
+        let row = indexPath.item / self.numberOfColumns
+        
+        var origin = CGPoint.zeroPoint
+        if column > 0 {
+            let previousIndexPath = indexPathForItem(row, column: column - 1)
+            let previousCellOrigin = self.originForItem(previousIndexPath)!
+            origin.x = previousCellOrigin.x
+        }
+        
+        if row > 0 {
+            let previousIndexPath = indexPathForItem(row - 1, column: column)
+            let previousCellOrigin = self.originForItem(previousIndexPath)!
+            let previousCellSize = self.sizeForItem(previousIndexPath)!
+            origin.y = previousCellOrigin.y + previousCellSize.width
+        }
+        
+        return origin
+    }
+    
+    private func indexPathForItem(row: Int, column: Int) -> NSIndexPath {
+        let item = (row * self.numberOfColumns) + column
+        let section = 0
+        return NSIndexPath(forItem: item, inSection: section)
     }
     
 }
