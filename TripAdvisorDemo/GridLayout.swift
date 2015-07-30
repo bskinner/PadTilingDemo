@@ -120,6 +120,29 @@ class GridLayout: UICollectionViewLayout {
     }
     
     private func numberOfItemsInCollectionView() -> Int {
+        guard let collectionView = self.collectionView else {
+            return 0
+        }
+        
+        guard collectionView.numberOfSections() > 0 else {
+            return 0
+        }
+        
+        return collectionView.numberOfItemsInSection(0)
+    }
+    
+    private func frameForItem(indexPath: NSIndexPath) -> CGRect {
+        guard let size = self.sizeForItem(indexPath) else {
+            return CGRect.zeroRect
+        }
+        
+        guard let origin = self.originForItem(indexPath) else {
+            return CGRect.zeroRect
+        }
+        
+        return CGRect(origin: origin, size: size)
+    }
+    
     private func sizeForItem(indexPath: NSIndexPath) -> CGSize? {
         guard let collectionView = self.collectionView else {
             return nil
