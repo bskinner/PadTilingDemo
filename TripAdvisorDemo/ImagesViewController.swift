@@ -47,7 +47,7 @@ override
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier, forIndexPath: indexPath) as! ImagesCollectionViewCell
         
         if let images = self.viewModel?[indexPath] {
-            cell.images = [images]
+            cell.images = images
         }
         
         return cell
