@@ -187,14 +187,15 @@ class GridLayout: UICollectionViewLayout {
         if column > 0 {
             let previousIndexPath = indexPathForItem(row, column: column - 1)
             let previousCellOrigin = self.originForItem(previousIndexPath)!
-            origin.x = previousCellOrigin.x
+            let previousCellSize = self.sizeForItem(previousIndexPath)!
+            origin.x = previousCellOrigin.x + previousCellSize.width
         }
         
         if row > 0 {
             let previousIndexPath = indexPathForItem(row - 1, column: column)
             let previousCellOrigin = self.originForItem(previousIndexPath)!
             let previousCellSize = self.sizeForItem(previousIndexPath)!
-            origin.y = previousCellOrigin.y + previousCellSize.width
+            origin.y = previousCellOrigin.y + previousCellSize.height
         }
         
         return origin
