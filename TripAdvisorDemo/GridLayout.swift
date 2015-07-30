@@ -74,11 +74,24 @@ class GridLayout: UICollectionViewLayout {
     }
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        var intersectingAttributes: [UICollectionViewLayoutAttributes] = []
+        for layoutAttributes in self.attributes! {
+            if layoutAttributes.frame.intersects(rect) {
+                intersectingAttributes.append(layoutAttributes)
+            }
+        }
         
+        return intersectingAttributes
     }
     
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+        let item = indexPath.item
         
+        guard let attributes = self.attributes else {
+            return nil
+        }
+        
+        return attributes[item]
     }
     
     override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
