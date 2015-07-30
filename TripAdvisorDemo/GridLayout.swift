@@ -64,7 +64,13 @@ class GridLayout: UICollectionViewLayout {
     
     // MARK: Required
     override func collectionViewContentSize() -> CGSize {
+        var rect = CGRect.zeroRect
         
+        for layoutAttributes in self.attributes! {
+            rect.union(layoutAttributes.frame)
+        }
+        
+        return rect.size
     }
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
