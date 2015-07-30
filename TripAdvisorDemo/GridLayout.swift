@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CollectionViewDelegateGridLayout: UICollectionViewDelegate {
-    func collectionView(collectionView: UICollectionView, sizeForItemAtIndexPath: NSIndexPath) -> CGSize
+    func collectionView(collectionView: UICollectionView, heightForItemAtIndexPath indexPath: NSIndexPath) -> CGFloat
 }
 
 func /(lhs: Int, rhs: Int) -> Int {
