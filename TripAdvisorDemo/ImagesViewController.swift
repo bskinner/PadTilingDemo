@@ -1,14 +1,6 @@
-//
-//  ViewController.swift
-//  TripAdvisorDemo
-//
-//  Created by Blake Skinner on 7/29/15.
-//  Copyright © 2015 Blake Skinner. All rights reserved.
-//
-
 import UIKit
 
-class ViewController: UIViewController {
+class ImagesViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
