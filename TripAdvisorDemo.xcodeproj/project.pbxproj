@@ -14,6 +14,7 @@
 		2C2D03E41B69C0EE003DA71B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2D03E21B69C0EE003DA71B /* LaunchScreen.storyboard */; };
 		2C2D03EC1B69C1EC003DA71B /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D03EB1B69C1EC003DA71B /* GridLayout.swift */; };
 		2C2D03EF1B69C230003DA71B /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D03EE1B69C230003DA71B /* ImagesCollectionViewCell.swift */; };
+		2C2D03F11B69C359003DA71B /* ImagesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2D03F01B69C359003DA71B /* ImagesDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		2C2D03E51B69C0EE003DA71B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C2D03EB1B69C1EC003DA71B /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		2C2D03EE1B69C230003DA71B /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		2C2D03F01B69C359003DA71B /* ImagesDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				2C2D03D91B69C0EE003DA71B /* AppDelegate.swift */,
 				2C2D03EB1B69C1EC003DA71B /* GridLayout.swift */,
+				2C2D03F01B69C359003DA71B /* ImagesDataSource.swift */,
 				2C2D03EE1B69C230003DA71B /* ImagesCollectionViewCell.swift */,
 				2C2D03DB1B69C0EE003DA71B /* ImagesViewController.swift */,
 				2C2D03DD1B69C0EE003DA71B /* Main.storyboard */,
@@ -144,6 +147,7 @@
 				2C2D03DC1B69C0EE003DA71B /* ImagesViewController.swift in Sources */,
 				2C2D03EF1B69C230003DA71B /* ImagesCollectionViewCell.swift in Sources */,
 				2C2D03DA1B69C0EE003DA71B /* AppDelegate.swift in Sources */,
+				2C2D03F11B69C359003DA71B /* ImagesDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
