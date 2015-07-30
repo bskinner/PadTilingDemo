@@ -9,7 +9,7 @@ func /(lhs: Int, rhs: Int) -> Int {
 }
 
 class GridLayout: UICollectionViewLayout {
-    private var attributes: [UICollectionViewLayoutAttributes] = []
+    private var attributes: [UICollectionViewLayoutAttributes]?
     private var numberOfItems: Int = 0
     private var columnWidth: CGFloat = 0
     private var delegate: CollectionViewDelegateGridLayout? {
