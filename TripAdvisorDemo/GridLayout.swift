@@ -53,14 +53,13 @@ class GridLayout: UICollectionViewLayout {
     // MARK: - Overrides
     override func prepareLayout() {
         super.prepareLayout()
+        self.resetLayout()
         
         guard let collectionView = self.collectionView else {
-            self.resetLayout()
             return
         }
         
         guard collectionView.numberOfSections() > 0 else {
-            self.resetLayout()
             return
         }
         
