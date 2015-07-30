@@ -45,11 +45,9 @@ class GridLayout: UICollectionViewLayout {
         super.init()
     }
     
-    required init?(coder: NSCoder) {
     func columnWidthForCollectionView() -> CGFloat {
         return self.columnWidth
     }
-    
     
     // MARK: - Overrides
     override func prepareLayout() {
