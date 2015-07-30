@@ -62,6 +62,20 @@ class GridLayout: UICollectionViewLayout {
             self.resetLayout()
             return
         }
+        
+        var bounds = collectionView.bounds
+        self.columnWidth = bounds.width / CGFloat(self.numberOfColumns)
+        self.numberOfItems = self.numberOfItemsInCollectionView()
+        var attributes: [UICollectionViewLayoutAttributes] = []
+        
+        for item in 0..<self.numberOfItems {
+            let indexPath = NSIndexPath(forItem: item, inSection: 0)
+            let layoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+            layoutAttributes.frame = self.frameForItem(indexPath)
+            attributes.append(layoutAttributes)
+        }
+        
+        self.attributes = attributes
     }
     
     // MARK: Required
