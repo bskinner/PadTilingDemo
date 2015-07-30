@@ -83,3 +83,4 @@ class ImagesViewController: UICollectionViewController, CollectionViewDelegateGr
         return floor((maxSize.height / maxSize.width) * self.gridLayout.columnWidthForCollectionView())
     }
 }
+
