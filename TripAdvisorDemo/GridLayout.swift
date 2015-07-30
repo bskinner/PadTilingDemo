@@ -4,6 +4,10 @@ protocol CollectionViewDelegateGridLayout: UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, sizeForItemAtIndexPath: NSIndexPath) -> CGSize
 }
 
+func /(lhs: Int, rhs: Int) -> Int {
+    return Int(floor(Double(lhs) / Double(rhs)))
+}
+
 class GridLayout: UICollectionViewLayout {
     private var attributes: [UICollectionViewLayoutAttributes] = []
     private var numberOfItems: Int = 0
@@ -32,13 +36,18 @@ class GridLayout: UICollectionViewLayout {
         self.init(numberOfColumns: 4)
     }
     
-    required init(numberOfColumns: Int) {
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    init(numberOfColumns: Int) {
         self.numberOfColumns = numberOfColumns
         super.init()
     }
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    func columnWidthForCollectionView() -> CGFloat {
+        return self.columnWidth
     }
     
     
