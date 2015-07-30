@@ -56,6 +56,10 @@ class ImagesViewController: UICollectionViewController, CollectionViewDelegateGr
                     print("failed to load image at index path \(indexPath)")
                 }
                 
+                // Note to self, this method will not always be called on the main
+                // thread and, if it isn't, UICollectionView will end up with
+                // very odd behaviors (for example, content size not updating properly).
+                // Make sure things are dispatched onto the correct thread.
                 NSOperationQueue.mainQueue().addOperationWithBlock() {
                     collectionView.reloadItemsAtIndexPaths([indexPath])
                 }
