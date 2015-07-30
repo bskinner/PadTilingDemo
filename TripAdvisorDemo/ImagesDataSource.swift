@@ -2,7 +2,7 @@ import UIKit
 
 class ImagesDataSource {
     private let imageURLs: [NSURL]
-    private var cachedImages: [NSURL:NSData] = [:]
+    private var cachedImages: [NSURL:UIImage] = [:]
     
     subscript(index: Int) -> NSURL {
         get {
@@ -11,7 +11,7 @@ class ImagesDataSource {
     }
     
     init() {
-        var images = ["http://media-cache-ec2.pinimg.com/550x/9c/0f/e1/9c0fe176ef1f226b24731eb146a3dbac.jpg",
+        let images = ["http://media-cache-ec2.pinimg.com/550x/9c/0f/e1/9c0fe176ef1f226b24731eb146a3dbac.jpg",
             "http://media-cache-ec2.pinimg.com/550x/d6/ac/9a/d6ac9a1527726b66a6bf09de58a0bd4d.jpg",
             "http://media-cache-ec2.pinimg.com/550x/e1/88/c6/e188c6f590a8efec480a89aa43a0fcc5.jpg",
             "http://media-cache-ec2.pinimg.com/550x/df/16/14/df1614ff36e7a2e8074edc289f183079.jpg",
@@ -32,38 +32,38 @@ class ImagesDataSource {
         
         var urls: [NSURL] = []
         for image in images {
-            if let url = NSURL(image) {
+            if let url = NSURL(string: image) {
                 urls.append(url)
             } else {
-                println("failed to create URL for string \(image)")
+                print("failed to create URL for string \(image)")
             }
         }
         
         self.imageURLs = urls
     }
     
-    func image(index: Int, completion: (image: UIImage?, error: NSError?) -> ()) -> NSURLSessionTask {
-        var imageURL = self[index]
+    func image(index: Int, completion: (image: UIImage?, error: NSError?) -> ()) -> NSURLSessionTask? {
+        let imageURL = self[index]
         
         if let cachedImage = cachedImages[imageURL] {
-            completion(cachedImage, nil)
+            completion(image: cachedImage, error: nil)
             return nil
         } else {
-            var task = NSURLSession.sharedSession().dataTaskWithURL(imageURL) { data, response, error in
+            let task = NSURLSession.sharedSession().dataTaskWithURL(imageURL) { data, response, error in
                 guard error == nil else {
-                    println("request failed with error \(error)")
-                    completion(nil,error: error)
+                    print("request failed with error \(error)")
+                    completion(image: nil,error: error)
                     return
                 }
                 
-                guard let image = UIImage(data) else {
-                    println("failed to create image from data for url \(imageURL)")
-                    completion(nil,nil)
+                guard let image = UIImage(data: data!) else {
+                    print("failed to create image from data for url \(imageURL)")
+                    completion(image: nil,error: nil)
                     return
                 }
                 
-                cachedImages[imageURL] = image
-                completion(image,nil)
+                self.cachedImages[imageURL] = image
+                completion(image: image,error: nil)
             }
             
             task.resume()
