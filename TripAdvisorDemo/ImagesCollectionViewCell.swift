@@ -25,6 +25,7 @@ class ImagesCollectionViewCell: UICollectionViewCell {
             imageView.translatesAutoresizingMaskIntoConstraints = true
             imageView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
             imageView.frame = self.bounds
+            imageView.contentMode = UIViewContentMode.ScaleAspectFit
             self.addSubview(imageView)
         }
     }
