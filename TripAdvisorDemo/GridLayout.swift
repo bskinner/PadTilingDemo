@@ -12,6 +12,7 @@ class GridLayout: UICollectionViewLayout {
     private var attributes: [UICollectionViewLayoutAttributes]?
     private var numberOfItems: Int = 0
     private var columnWidth: CGFloat = 0
+    private var cachedContentSize: CGSize?
     private var delegate: CollectionViewDelegateGridLayout? {
         get {
             if let delegate = self.collectionView?.delegate as? CollectionViewDelegateGridLayout {
@@ -80,13 +81,25 @@ class GridLayout: UICollectionViewLayout {
     
     // MARK: Required
     override func collectionViewContentSize() -> CGSize {
-        var rect = CGRect.zeroRect
-        
-        for layoutAttributes in self.attributes! {
-            rect.union(layoutAttributes.frame)
+        if let contentSize = cachedContentSize {
+            return contentSize
+        } else {
+            guard let attributes = self.attributes else {
+                return CGSize.zeroSize
+            }
+            
+            guard attributes.count > 0 else {
+                return CGSize.zeroSize
+            }
+            
+            let initialFrame = attributes[0].frame
+            let contentFrame = attributes.reduce(initialFrame) { (frame, layoutAttributes) -> CGRect in
+                return frame.rectByUnion(layoutAttributes.frame)
+            };
+            
+            cachedContentSize = contentFrame.integerRect.size
+            return contentFrame.integerRect.size
         }
-        
-        return rect.size
     }
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -127,6 +140,7 @@ class GridLayout: UICollectionViewLayout {
         self.columnWidth = 0
         self.numberOfItems = 0
         self.attributes = nil
+        self.cachedContentSize = nil
     }
     
     private func numberOfItemsInCollectionView() -> Int {
